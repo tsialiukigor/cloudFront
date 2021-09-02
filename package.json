@@ -1,0 +1,19 @@
+{
+  "name": "static-app",
+  "version": "1.0.0",
+  "main": "handler.js",
+  "scripts": {
+    "upload:s3": "sls client deploy",
+    "deploy:resources": "sls deploy --force",
+    "invalidate:cache": "aws cloudfront create-invalidation --distribution-id E2PPS6UHEO9UMI --paths \"/*\"",
+    "distribution:list": "aws cloudfront list-distributions",
+    "deploy": "npm run deploy:resources && npm run upload:s3 && npm run invalidate:cache && npm run distribution:list"
+  },
+  "author": "Igor Tsialiuk",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "serverless-finch": "^2.6.0",
+    "serverless-single-page-app-plugin": "file:./serverless-single-page-app-plugin"
+  }
+}
